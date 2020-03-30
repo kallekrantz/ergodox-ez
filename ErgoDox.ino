@@ -38,7 +38,7 @@ KEYMAPS(
       Key_Delete,            Key_Q,         Key_W,     Key_E,         Key_R,   Key_T,   LockLayer(SWERTY),
       Key_Backspace,         Key_A,         Key_S,     Key_D,         Key_F,   Key_G,
       Key_LeftShift,         CTL_T(Z),      Key_X,     Key_C,         Key_V,   Key_B,   Key_LeftControl,
-      LT(SYMBOLS ,Backtick), Key_Quote,     Key_NoKey, Key_LeftArrow, Key_RightArrow,
+      LT(SYMBOLS, Backtick), Key_Quote,     Key_NoKey, Key_LeftArrow, Key_RightArrow,
 
       Key_LeftAlt, Key_LeftGui,
       Key_Home,
@@ -48,7 +48,7 @@ KEYMAPS(
       Key_RightArrow,   Key_6,         Key_7,  Key_8,      Key_9,      Key_0,         Key_Minus,
       Key_NoKey,        Key_Y,         Key_U,  Key_I,      Key_O,      Key_P,         Key_Backslash,
                         Key_H,         Key_J,  Key_K,      Key_L,      Key_Semicolon, GUI_T(Quote),
-      Key_RightControl, Key_N,         Key_M,  Key_Comma,  Key_Period, Key_Slash,     Key_RightShift,
+      Key_RightControl, Key_N,         Key_M,  Key_Comma,  Key_Period, CTL_T(Slash),  Key_RightShift,
       Key_UpArrow,      Key_DownArrow, Key_LeftBracket,    Key_RightBracket,          Key_LEDEffectNext,
 
       Key_LeftAlt,  Key_Esc,
