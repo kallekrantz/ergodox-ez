@@ -22,12 +22,15 @@
 #include <Kaleidoscope-Macros.h>
 #include <Kaleidoscope-LEDEffects.h>
 #include <Kaleidoscope-LEDEffect-SolidColor.h>
-
+#include <Kaleidoscope-LangPack-Hungarian.h>
+#include <Kaleidoscope-LangPack-European.h>
 enum {
   QWERTY,
   SWERTY,
   SYMBOLS
 };
+
+using namespace kaleidoscope::language;
 
 /* *INDENT-OFF* */
 KEYMAPS(
@@ -69,11 +72,11 @@ KEYMAPS(
       ___, ___, ___,
 
       // right hand
-      ___,       ___,     ___,  ___,          ___,      ___,                  ___,
-      ___,       ___,     ___,  ___,          ___,      ___,                  Key_LeftBracket,
-      ___,       ___,     ___,  ___,          ___,      ___,
-      ___,       ___,     ___,  ___,          ___,      ___,                  ___,
-      ___,       ___,     ___,  ___,          ___,
+      ___,       ___,     ___,  ___,          ___,      ___,           ___,
+      ___,       ___,     ___,  ___,          ___,      ___,           INTL_ARING,
+                 ___,     ___,  ___,          ___,      INTL_OUMLAUT,  INTL_AUMLAUT,
+      ___,       ___,     ___,  ___,          ___,      ___,           ___,
+                          ___,  ___,          ___,      ___,           ___,
 
       ___,  ___,
       ___,
@@ -112,11 +115,27 @@ static kaleidoscope::plugin::LEDSolidColor solidRed(160, 0, 0);
 KALEIDOSCOPE_INIT_PLUGINS(Qukeys,
                           Macros,
                           LEDControl,
-                          solidRed);
+                          solidRed,
+                          LangPack_EU);
 
 void setup() {
   // Qukeys.setTimeout(200);
   // Qukeys.setReleaseDelay(20);
+  for (byte i = 1; i < 4; i++) {
+    Kaleidoscope.device().setStatusLED(i, true);
+  }
+
+  for (int i = 255; i > 15; i -= 2) {
+    for (byte l = 1; l < 4; l++) {
+      Kaleidoscope.device().setStatusLEDBrightness(l, i);
+    }
+    delay(5);
+  }
+
+  for (byte i = 1; i < 4; i++) {
+    Kaleidoscope.device().setStatusLED(i, false);
+  }
+
   Kaleidoscope.setup();
   Qukeys.activate();
   solidRed.activate();
