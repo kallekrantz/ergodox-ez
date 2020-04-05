@@ -20,10 +20,10 @@
 #include "Kaleidoscope.h"
 #include <Kaleidoscope-Qukeys.h>
 #include <Kaleidoscope-Macros.h>
-#include <Kaleidoscope-LEDEffects.h>
-#include <Kaleidoscope-LEDEffect-SolidColor.h>
-#include <Kaleidoscope-LangPack-Hungarian.h>
 #include <Kaleidoscope-LangPack-European.h>
+#include <Kaleidoscope-Leader.h>
+#include <Kaleidoscope-Unicode.h>
+
 enum {
   QWERTY,
   SWERTY,
@@ -40,7 +40,7 @@ KEYMAPS(
       Key_Equals,            Key_1,         Key_2,     Key_3,         Key_4,   Key_5,   Key_LeftArrow,
       Key_Delete,            Key_Q,         Key_W,     Key_E,         Key_R,   Key_T,   LockLayer(SWERTY),
       Key_Backspace,         Key_A,         Key_S,     Key_D,         Key_F,   Key_G,
-      Key_LeftShift,         CTL_T(Z),      Key_X,     Key_C,         Key_V,   Key_B,   Key_LeftControl,
+      Key_LeftShift,         CTL_T(Z),      Key_X,     Key_C,         Key_V,   Key_B,   LEAD(0),
       LT(SYMBOLS, Backtick), Key_Quote,     Key_NoKey, Key_LeftArrow, Key_RightArrow,
 
       Key_LeftAlt, Key_LeftGui,
@@ -50,9 +50,9 @@ KEYMAPS(
       // right hand
       Key_RightArrow,   Key_6,         Key_7,  Key_8,      Key_9,      Key_0,         Key_Minus,
       Key_NoKey,        Key_Y,         Key_U,  Key_I,      Key_O,      Key_P,         Key_Backslash,
-                        Key_H,         Key_J,  Key_K,      Key_L,      Key_Semicolon, GUI_T(Quote),
+                        Key_H,         Key_J,  Key_K,      Key_L,      Key_Semicolon, Key_Quote,
       Key_RightControl, Key_N,         Key_M,  Key_Comma,  Key_Period, CTL_T(Slash),  Key_RightShift,
-      Key_UpArrow,      Key_DownArrow, Key_LeftBracket,    Key_RightBracket,          Key_LEDEffectNext,
+      Key_UpArrow,      Key_DownArrow, Key_LeftBracket,    Key_RightBracket,          ___,
 
       Key_LeftAlt,  Key_Esc,
       Key_PageUp,
@@ -108,15 +108,37 @@ KEYMAPS(
   )
 )
 /* *INDENT-ON* */
-
-
-static kaleidoscope::plugin::LEDSolidColor solidRed(160, 0, 0);
-
-KALEIDOSCOPE_INIT_PLUGINS(Qukeys,
+KALEIDOSCOPE_INIT_PLUGINS(Leader,
+                          Qukeys,
                           Macros,
-                          LEDControl,
-                          solidRed,
-                          LangPack_EU);
+                          LangPack_EU,
+                          Unicode
+                          );
+enum {
+  LEAD_UNICODE_UCIS,
+  LEAD_SHRUGGY,
+};
+
+
+static void Shruggy(uint8_t seqIndex) {
+  ::Unicode.type(0xaf);
+  ::Macros.play(MACRO(Tc(Backslash),
+                      D(RightShift),
+                      Tc(Minus),
+                      Tc(9),
+                      U(RightShift)));
+  ::Unicode.type(0x30c4);
+  ::Macros.play(MACRO(D(RightShift),
+                      Tc(0),
+                      Tc(Minus),
+                      U(RightShift),
+                      Tc(Slash)));
+  ::Unicode.type(0xaf);
+}
+static const kaleidoscope::plugin::Leader::dictionary_t dictionary[] PROGMEM = LEADER_DICT
+                          (
+                           { LEADER_SEQ(LEAD(0), Key_S), Shruggy }
+                           );
 
 void setup() {
   // Qukeys.setTimeout(200);
@@ -131,7 +153,7 @@ void setup() {
     Kaleidoscope.device().setStatusLED(i, false);
     delay(250);
   }
-
+  Leader.dictionary = dictionary;
   Kaleidoscope.device().debounce = 8;
 
   Qukeys.activate();
