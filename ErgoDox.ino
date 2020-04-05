@@ -137,6 +137,8 @@ void setup() {
   }
 
   Kaleidoscope.setup();
+  Kaleidoscope.device().debounce = 8;
+
   Qukeys.activate();
   solidRed.activate();
 }
