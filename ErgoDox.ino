@@ -121,26 +121,20 @@ KALEIDOSCOPE_INIT_PLUGINS(Qukeys,
 void setup() {
   // Qukeys.setTimeout(200);
   // Qukeys.setReleaseDelay(20);
+  Kaleidoscope.setup();
   for (byte i = 1; i < 4; i++) {
     Kaleidoscope.device().setStatusLED(i, true);
+    delay(250);
   }
 
-  for (int i = 255; i > 15; i -= 2) {
-    for (byte l = 1; l < 4; l++) {
-      Kaleidoscope.device().setStatusLEDBrightness(l, i);
-    }
-    delay(5);
-  }
-
-  for (byte i = 1; i < 4; i++) {
+  for (byte i = 3; i > 0; i--) {
     Kaleidoscope.device().setStatusLED(i, false);
+    delay(250);
   }
 
-  Kaleidoscope.setup();
   Kaleidoscope.device().debounce = 8;
 
   Qukeys.activate();
-  solidRed.activate();
 }
 
 void loop() {
