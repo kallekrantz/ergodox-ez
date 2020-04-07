@@ -154,7 +154,7 @@ void setup() {
     delay(250);
   }
   Leader.dictionary = dictionary;
-  Kaleidoscope.device().debounce = 8;
+  Kaleidoscope.device().debounce = 7;
 
   Qukeys.activate();
 }
