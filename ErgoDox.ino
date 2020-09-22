@@ -146,12 +146,20 @@ void setup() {
   Kaleidoscope.setup();
   for (byte i = 1; i < 4; i++) {
     Kaleidoscope.device().setStatusLED(i, true);
-    delay(250);
+    delay(40);
   }
 
   for (byte i = 3; i > 0; i--) {
     Kaleidoscope.device().setStatusLED(i, false);
-    delay(250);
+  }
+  delay(20);
+  for (byte i = 3; i > 0; i--) {
+    Kaleidoscope.device().setStatusLED(i, true);
+  }
+
+  for (byte i = 3; i > 0; i--) {
+    Kaleidoscope.device().setStatusLED(i, false);
+    delay(40);
   }
   Leader.dictionary = dictionary;
   Kaleidoscope.device().debounce = 7;
